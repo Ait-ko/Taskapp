@@ -1,4 +1,4 @@
-package com.example.just_task.data.local
+package com.example.taskapp.data.local
 
 import android.content.Context
 
@@ -22,13 +22,7 @@ class Pref(context: Context) {
         return pref.getString(NICK_NAME_KEY, "").toString()
     }
 
-    fun setPassword(secondName: String) {
-        pref.edit().putString(PASSWORD, secondName).apply()
-    }
 
-    fun getPassword(): String {
-        return pref.getString(PASSWORD, " ").toString()
-    }
 
     fun setPicture(image: String) {
         pref.edit().putString(USER_PICTURE_KEY, image).apply()
@@ -43,7 +37,7 @@ class Pref(context: Context) {
         const val PREF_NAME = "pref.name"
         const val SHOWED_KEY = "showed.key"
         const val NICK_NAME_KEY = "nick.name"
-        const val PASSWORD = "password.key"
+        const val SURINAME = "suriname.key"
         const val USER_PICTURE_KEY = "user.picture"
     }
 }

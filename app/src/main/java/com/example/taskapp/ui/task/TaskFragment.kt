@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import com.example.taskapp.App
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentTaskBinding
 import com.example.taskapp.model.TaskModel
@@ -36,7 +37,7 @@ class TaskFragment : Fragment() {
                 binding.etTitle.error = "Enter Title"
             } else {
                 val data = TaskModel(title = title, description = description)
-                setFragmentResult(SAVE_RESULT_KEY, bundleOf(TASK_KEY to data))
+                App.db.taskDao().insert(data)
                 findNavController().navigateUp()
             }
         }

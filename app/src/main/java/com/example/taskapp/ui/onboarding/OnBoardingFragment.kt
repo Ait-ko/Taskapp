@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.just_task.data.local.Pref
+import com.example.taskapp.data.local.Pref
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentOnBoardingBinding
 

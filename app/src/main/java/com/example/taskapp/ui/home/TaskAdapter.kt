@@ -1,19 +1,23 @@
 package com.example.taskapp.ui.home
 
 import android.view.LayoutInflater
+import android.view.View.OnClickListener
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView.Adapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide.init
 import com.example.taskapp.databinding.ItemTaskBinding
 import com.example.taskapp.model.TaskModel
 
-class TaskAdapter : Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(val onLongClickItem: (task: TaskModel) -> Unit): RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val taskList = arrayListOf<TaskModel>()
 
-    fun addTask(task: TaskModel) {
-        taskList.add(0, task)
-        notifyItemChanged(0)
+
+    fun addTasks(tasks: List<TaskModel>) {
+        taskList.clear()
+        taskList.addAll(tasks)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -40,6 +44,17 @@ class TaskAdapter : Adapter<TaskAdapter.TaskViewHolder>() {
             binding.tvTitle.text = task.title
             binding.tvDescription.text = task.description
         }
-    }
 
+        init {
+            itemView.setOnLongClickListener {
+                onLongClickItem(taskList[adapterPosition])
+                true
+            }
+
+
+
+        }
+    }
 }
+
+

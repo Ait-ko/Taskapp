@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.just_task.data.local.Pref
+import com.example.taskapp.data.local.Pref
 import com.example.taskapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
