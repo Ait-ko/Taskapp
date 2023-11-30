@@ -9,9 +9,14 @@ import com.bumptech.glide.Glide.init
 import com.example.taskapp.databinding.ItemTaskBinding
 import com.example.taskapp.model.TaskModel
 
-class TaskAdapter(val onLongClickItem: (task: TaskModel) -> Unit): RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter (val onLongClickItem:(task: TaskModel)-> Unit) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val taskList = arrayListOf<TaskModel>()
+
+     val onClickItem : (task : TaskModel) ->Unit
+        get() {
+            TODO()
+        }
 
 
     fun addTasks(tasks: List<TaskModel>) {
@@ -49,6 +54,9 @@ class TaskAdapter(val onLongClickItem: (task: TaskModel) -> Unit): RecyclerView.
             itemView.setOnLongClickListener {
                 onLongClickItem(taskList[adapterPosition])
                 true
+            }
+            itemView.setOnClickListener {
+                onClickItem
             }
 
 
