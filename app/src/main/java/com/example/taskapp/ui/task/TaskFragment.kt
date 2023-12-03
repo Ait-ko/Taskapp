@@ -13,6 +13,7 @@ import com.example.taskapp.App
 import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentTaskBinding
 import com.example.taskapp.model.TaskModel
+import com.example.taskapp.ui.home.HomeFragment
 
 
 class TaskFragment : Fragment() {
@@ -28,7 +29,14 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val taskModel = arguments?.getSerializable(HomeFragment.TASK_EDIT_KEY) as TaskModel?
+        if (taskModel != null){
+            binding.btnSave.text = "Update"
+            binding.etTitle.setText(taskModel.title)
+            binding.etDescription.setText(taskModel.description)
 
+
+        }
         binding.btnSave.setOnClickListener {
             val title = binding.etTitle.text.toString()
             val description = binding.etDescription.text.toString()

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.taskapp.App
@@ -18,7 +19,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    private val adapter = TaskAdapter(this :: onLongClickItem)
+    private val adapter = TaskAdapter(this :: onClick , this :: onLongClick)
 
     private val binding get() = _binding!!
 
@@ -40,9 +41,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.taskFragment)
         }
     }
-    private fun onLongClickItem(tasks:TaskModel){
+    private fun onLongClick(tasks: TaskModel){
         showAlertDialog(tasks)
     }
+
     private fun showAlertDialog(tasks: TaskModel) {
         val alertDialog = AlertDialog.Builder(requireContext())
         alertDialog.setTitle("Deleted ? " + tasks.title)
@@ -60,5 +62,13 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+    private  fun onClick(tasks: TaskModel){
+        findNavController().navigate(R.id.taskFragment, bundleOf(TASK_EDIT_KEY to tasks))
+
+
+    }
+    companion object {
+        const val TASK_EDIT_KEY = "task.edit.key"
     }
 }
