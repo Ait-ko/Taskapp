@@ -1,0 +1,90 @@
+package com.example.taskapp.ui.auth.phone
+
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
+import com.example.taskapp.R
+import com.example.taskapp.databinding.FragmentPhoneBinding
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import java.util.concurrent.TimeUnit
+
+class PhoneFragment : Fragment() {
+
+    private lateinit var binding: FragmentPhoneBinding
+
+    private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+    override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+
+    }
+
+    override fun onVerificationFailed(e: FirebaseException) {
+        Log.e("olololo","onVerificationFailed: "+ e.message)
+
+    }
+
+    override fun onCodeSent(
+        verificationId: String,
+        token: PhoneAuthProvider.ForceResendingToken,
+    ) {
+        Log.e("ilililili","onCodeSent: " + verificationId)
+        findNavController().navigate(R.id.acceptFragment, bundleOf(VER_KEY to verificationId))
+    }
+}
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentPhoneBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.btnSend.setOnClickListener {
+            val options = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
+                .setPhoneNumber(binding.edPhone.text.toString()) // Phone number to verify
+                .setTimeout(60, TimeUnit.SECONDS) // Timeout and unit
+                .setActivity(requireActivity()) // Activity (for callback binding)
+                .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
+                .build()
+            PhoneAuthProvider.verifyPhoneNumber(options)
+
+        }
+        binding.edPhone.addTextChangedListener( object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString()
+                if (!text.startsWith("+996 ")) {
+                    binding.edPhone.setText("+996 $s")
+                    binding.edPhone.text?.let { binding.edPhone.setSelection(it.length) }
+            }
+            }
+        })
+    }
+    companion object {
+        const val VER_KEY = "ver_key"
+    }
+}
+
+
+
+
+
+
