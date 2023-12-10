@@ -10,5 +10,10 @@
     <string name="skip">Skip</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="exit_text">Do you want to Exit?</string>
+    <string name="exit_text_end">Exit</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_accept">Are you sure</string>
+    <string name="the_book_save">The book save</string>
 
 </resources>

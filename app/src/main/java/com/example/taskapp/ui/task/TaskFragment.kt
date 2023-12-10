@@ -40,7 +40,6 @@ class TaskFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             val title = binding.etTitle.text.toString()
             val description = binding.etDescription.text.toString()
-
             if (binding.etTitle.text.toString().trim().isEmpty()){
                 binding.etTitle.error = "Enter Title"
             } else {
