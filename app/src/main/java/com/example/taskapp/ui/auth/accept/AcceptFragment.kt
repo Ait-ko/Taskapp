@@ -1,5 +1,6 @@
 package com.example.taskapp.ui.auth.accept
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ class AcceptFragment : Fragment() {
         return  binding.root
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val verId = arguments?.getString(PhoneFragment.VER_KEY)

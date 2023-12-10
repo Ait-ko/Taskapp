@@ -53,8 +53,9 @@ class PhoneFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSend.setOnClickListener {
+            val number = "${binding.tlPhone.prefixText.toString()}${binding.edPhone.text.toString()}"
             val options = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
-                .setPhoneNumber(binding.edPhone.text.toString()) // Phone number to verify
+                .setPhoneNumber(number) // Phone number to verify
                 .setTimeout(60, TimeUnit.SECONDS) // Timeout and unit
                 .setActivity(requireActivity()) // Activity (for callback binding)
                 .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
@@ -62,21 +63,6 @@ class PhoneFragment : Fragment() {
             PhoneAuthProvider.verifyPhoneNumber(options)
 
         }
-        binding.edPhone.addTextChangedListener( object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val text = s.toString()
-                if (!text.startsWith("+996 ")) {
-                    binding.edPhone.setText("+996 $s")
-                    binding.edPhone.text?.let { binding.edPhone.setSelection(it.length) }
-            }
-            }
-        })
     }
     companion object {
         const val VER_KEY = "ver_key"
